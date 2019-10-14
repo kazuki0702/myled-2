@@ -3,6 +3,7 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/uaccess.h>
+#include <linux/io.h>　　　　　　　　　 
 MODULE_AUTHOR("Kazuki Takahara");
 MODULE_DESCRIPTION("driver for LED control");
 MODULE_LICENSE("GPL");
@@ -11,13 +12,18 @@ MODULE_VERSION("0.1");
 static dev_t dev; //major番号とminor番号が入る
 static struct cdev cdv;
 static struct class *cls = NULL;
+static volatile u32 *gpio_base = NULL;
 
 static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_t* pos){
-	char c;   //読み込んだ字を入れる変数
+	char c;
 	if(copy_from_user(&c,buf,sizeof(char)))
-	return -EFAULT;
-
-	printk(KERN_INFO "receive %c\n",c);
+		return -EFAULT;
+	if(c == '0'){
+		gpio_base[10] = 1 << 25;
+	}
+	else if(c == '1'){
+		gpio_base[7] = 1 << 25;
+	}
 	return 1;
 }
 
@@ -29,6 +35,14 @@ static struct file_operations led_fops = {
 static int __init init_mod(void) //カーネルモジュールの初期化
 {
 			int retval;
+
+			gpio_base = ioremap_nocache(0x3f200000, 0xA0);
+			const u32 led = 25;
+			const u32 index = led/10;
+			const u32 shift = (led%10)*3;
+			const u32 mask = ~(0x7 << shift);
+			gpio_base[index] = (gpio_base[index] & mask) | (0x1 << shift);
+
 			retval =  alloc_chrdev_region(&dev, 0, 1, "myled");
 			if(retval < 0){
 				printk(KERN_ERR "alloc_chrdev_region failed.\n");
