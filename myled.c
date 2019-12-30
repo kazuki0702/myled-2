@@ -23,7 +23,10 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/uaccess.h>
-#include <linux/io.h>　　　　　　　　　
+#include <linux/io.h>
+#include <linux/timer.h>
+#include <asm/delay.h>
+#include <linux/delay.h>　　　　　　　　　
 MODULE_AUTHOR("Kazuki Takahara");
 MODULE_DESCRIPTION("driver for LED control");
 MODULE_LICENSE("GPL");
@@ -41,9 +44,31 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 		return -EFAULT;
 	if(c == '0'){
 		gpio_base[10] = 1 << 25;
+		gpio_base[10] = 1 << 7;
 	}
 	else if(c == '1'){
 		gpio_base[7] = 1 << 25;
+		gpio_base[7] = 1 << 7;
+	}
+	else if(c == '2'){
+		for(i=1; i < 51; i++){
+			gpio_base[7] = 1 << 23;
+			if(i % 15 == 0){
+				gpio_base[7] = 1 << 25;
+				gpio_base[7] = 1 << 7;
+			}
+			else if(i % 5 == 0){
+				gpio_base[7] = 1 << 7;
+			}
+			else if(i % 3 == 0 ){
+				gpio_base[7] = 1 << 25;
+			}
+			msleep(400);
+			gpio_base[10] = 1 << 23;
+			gpio_base[10] = 1 << 25;
+			gpio_base[10] = 1 << 7;
+			msleep(400);
+		}
 	}
 	return 1;
 }
