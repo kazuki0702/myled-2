@@ -23,4 +23,9 @@ $ sudo chmod 666 /dev/myled0
 以下のコマンドを実行することでFizzBuzzが行われる．  
 ```
 $ echo 1 > /dev/myled0
+```  
+**後処理**  
+以下のコマンドを実行し，デバイスファイルを削除する．
+```
+$ sudo rmmod myled
 ```
