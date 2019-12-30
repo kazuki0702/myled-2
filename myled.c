@@ -1,9 +1,29 @@
+/*
+ * myled.c
+ *
+ * Copyright (C) 2019 Ryuichi Ueda <ryuichiueda@gmail.com>
+ * Copyright (C) 2019 Kazuki Takahara <s17c1088bm@s.chibakoudai.jp>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/uaccess.h>
-#include <linux/io.h>　　　　　　　　　 
+#include <linux/io.h>　　　　　　　　　
 MODULE_AUTHOR("Kazuki Takahara");
 MODULE_DESCRIPTION("driver for LED control");
 MODULE_LICENSE("GPL");
