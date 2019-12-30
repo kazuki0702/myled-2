@@ -7,7 +7,6 @@ LEDの点滅を用いてFizzBuzzを行うデバイスドライバ(1~50まで)
 * 緑LED：5の倍数  
 
 ## インストール方法  
-以下のコマンドを実行し，本パッケージをインストール  
 ```
 $ git clone https://github.com/takahara3/myled.git
 ```
@@ -20,7 +19,7 @@ $ make
 $ sudo insmod myled.ko
 $ sudo chmod 666 /dev/myled0  
 ```  
-以下のコマンドを実行することでFizzBuzzが行われる．  
+デバイスファイルに`1`を書き込むことでFizzBuzzが行われる．  
 ```
 $ echo 1 > /dev/myled0
 ```  
