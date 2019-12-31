@@ -1,6 +1,6 @@
 # ロボットシステム学 2019 課題1  
 ## 概要  
-LEDの点滅を用いてFizzBuzzを行うデバイスドライバ(1~50まで)  
+LEDの点滅を用いてFizzBuzzを行うデバイスドライバ(1~30まで)  
 各LEDは以下の法則で点滅を行う．  
 * 赤LED：カウント用  
 * 青LED：3の倍数  
@@ -27,4 +27,10 @@ $ echo 1 > /dev/myled0
 以下のコマンドを実行し，デバイスファイルを削除する．
 ```
 $ sudo rmmod myled
-```
+```  
+
+## デモ動画  
+
+
+## LICENSE  
+This repository is licensed under the GPLv3 license, see COPYING.
