@@ -12,12 +12,14 @@ LEDの点滅を用いてFizzBuzzを行うデバイスドライバ(1~30まで)
   - Raspberry Pi Model 3B+  
 * OS  
   - Ubuntu 16.04
-
+* 各LED 
+  - 赤（小）：16番ピン（GPIO23）　　
+  - 赤（大）：22番ピン（GPIO25）  
+  - 緑　　　：26番ピン（GPIO7）
 ## インストール方法  
 ```
 $ git clone https://github.com/takahara3/myled.git
 ```
-
 ## 実行方法  
 以下のコマンドを実行し，コンパイル，インストール，パーミッションの変更を行います．
 ```
